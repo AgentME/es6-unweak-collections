@@ -1,6 +1,6 @@
 {
   "name": "es6-unweak-collections",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "ES6 Harmony like collections such Map, WeakMap, and Set",
   "homepage": "https://github.com/AgentME/es6-unweak-collections",
   "keywords": [
