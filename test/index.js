@@ -1,5 +1,6 @@
 var assert = require('better-assert');
-require('../index');
+var Map = require('../index').Map;
+var Set = require('../index').Set;
 
 describe('ES Collections test', function(){
   it("Map existence", function () {
@@ -7,7 +8,7 @@ describe('ES Collections test', function(){
   });
 
   it("Map constructor behavior", function () {
-    assert(new Map instanceof Map);
+    assert(new Map() instanceof Map);
     assert(Map() instanceof Map);
     var a = 1;
     var b = {};
@@ -17,23 +18,17 @@ describe('ES Collections test', function(){
     assert(m.has(b));
     assert(m.has(c));
     assert(m.size, 3);
-    if ("__proto__" in {}) {
-      assert(Map().__proto__.isPrototypeOf(Map()));
-      assert(Map().__proto__ === Map.prototype);
-    }
+    assert(Object.getPrototypeOf(Map()).isPrototypeOf(Map()));
+    assert(Object.getPrototypeOf(Map()) === Map.prototype);
   });
 
-  it("Map#size - Mozilla only", function () {
-    var
-      o = Map()
-    ;
-    if ("size" in o) {
-      assert(o.size === 0);
-      o.set("a", "a");
-      assert(o.size === 1);
-      o["delete"]("a");
-      assert(o.size === 0);
-    }
+  it("Map#size", function () {
+    var o = Map();
+    assert(o.size === 0);
+    o.set("a", "a");
+    assert(o.size === 1);
+    o["delete"]("a");
+    assert(o.size === 0);
   });
 
   it("Map#has", function () {
@@ -164,16 +159,14 @@ describe('ES Collections test', function(){
   });
 
   it("Set constructor behavior", function () {
-    assert(new Set instanceof Set);
+    assert(new Set() instanceof Set);
     assert(Set() instanceof Set);
     var s = Set([1,2]);
     assert(s.has(1));
     assert(s.has(2));
     assert(s.size, 2);
-    if ("__proto__" in {}) {
-      assert(Set().__proto__.isPrototypeOf(Set()));
-      assert(Set().__proto__ === Set.prototype);
-    }
+    assert(Object.getPrototypeOf(Set()).isPrototypeOf(Set()));
+    assert(Object.getPrototypeOf(Set()) === Set.prototype);
   });
 
   it("Set#size - Mozilla only", function () {
@@ -261,41 +254,16 @@ describe('ES Collections test', function(){
     assert(!o.values().length);
   });
 
-
-  it("WeakSet existence", function () {
-    assert(WeakSet);
-  });
-
-  it("WeakSet constructor behavior", function () {
-    assert(new WeakSet instanceof WeakSet);
-    assert(WeakSet() instanceof WeakSet);
-    var a = {}, b = {};
-    var s = WeakSet([a, b]);
-    assert(s.has(a) && s.has(b));
-    if ("__proto__" in {}) {
-      assert(WeakSet().__proto__.isPrototypeOf(WeakSet()));
-      assert(WeakSet().__proto__ === WeakSet.prototype);
-    }
-  });
-
-  it("Set#add, WeakSet#add, Map#set and WeakMap#set are chainable now", function(){
+  it("Set#add and Map#set are chainable now", function(){
     var s = Set();
-    var ws = WeakSet();
     var m = Map();
-    var wm = WeakMap();
     var a = {}, b = {};
 
     s.add(1).add(2);
     assert(s.has(1) && s.has(2) && s.size === 2);
 
-    ws.add(a).add(b);
-    assert(ws.has(a) && ws.has(b));
-
     m.set(1, 1).set(a, 2);
     assert(m.has(1) && m.has(a) && m.size === 2);
-
-    wm.set(a, b).set(b, a);
-    assert(wm.get(a) === b && wm.get(b) === a);
   });
 
   it("Recognize any iterable as the constructor input", function(){

@@ -4,28 +4,10 @@
   //shortcuts
   var defineProperty = Object.defineProperty, is = Object.is;
 
-
-  //Polyfill global objects
-  if (typeof WeakMap == 'undefined') {
-    exports.WeakMap = createCollection({
-      // WeakMap#delete(key:void*):boolean
-      'delete': sharedDelete,
-      // WeakMap#clear():
-      clear: sharedClear,
-      // WeakMap#get(key:void*):void*
-      get: sharedGet,
-      // WeakMap#has(key:void*):boolean
-      has: mapHas,
-      // WeakMap#set(key:void*, value:void*):void
-      set: sharedSet
-    }, true);
-  }
-
   if (typeof Map == 'undefined') {
     exports.Map = createCollection({
-      // WeakMap#delete(key:void*):boolean
+      // Map#delete(key:void*):boolean
       'delete': sharedDelete,
-      //:was Map#get(key:void*[, d3fault:void*]):void*
       // Map#has(key:void*):boolean
       has: mapHas,
       // Map#get(key:void*):boolean
@@ -41,6 +23,8 @@
       // Map#clear():
       clear: sharedClear
     });
+  } else {
+    exports.Map = Map;
   }
 
   if (typeof Set == 'undefined') {
@@ -58,19 +42,8 @@
       // Set#forEach(callback:Function, context:void*):void ==> callback.call(context, value, index) === not in specs
       forEach: sharedSetIterate
     });
-  }
-
-  if (typeof WeakSet == 'undefined') {
-    exports.WeakSet = createCollection({
-      // WeakSet#delete(key:void*):boolean
-      'delete': sharedDelete,
-      // WeakSet#add(value:void*):boolean
-      add: sharedAdd,
-      // WeakSet#clear():
-      clear: sharedClear,
-      // WeakSet#has(value:void*):boolean
-      has: setHas
-    }, true);
+  } else {
+    exports.Set = Set;
   }
 
 
@@ -106,13 +79,12 @@
 
   /** parse initial iterable argument passed */
   function init(a){
-    var i;
     //init Set argument, like `[1,2,3,{}]`
     if (this.add)
       a.forEach(this.add, this);
     //init Map argument like `[[1,2], [{}, 4]]`
     else
-      a.forEach(function(a){this.set(a[0],a[1])}, this);
+      a.forEach(function(a){this.set(a[0],a[1]);}, this);
   }
 
 
@@ -124,7 +96,7 @@
     }
     // Aurora here does it while Canary doesn't
     return -1 < i;
-  };
+  }
 
   function sharedGet(key) {
     return this.has(key) ? this._values[i] : undefined;
@@ -149,11 +121,11 @@
 
   /** @chainable */
   function sharedSet(key, value) {
-    this.has(key) ?
-      this._values[i] = value
-      :
-      this._values[this._keys.push(key) - 1] = value
-    ;
+    if (this.has(key)) {
+      this._values[i] = value;
+    } else {
+      this._values[this._keys.push(key) - 1] = value;
+    }
     return this;
   }
 
@@ -195,4 +167,4 @@
     });
   }
 
-})(typeof exports != 'undefined' && typeof global != 'undefined' ? global : window );
+})(exports);

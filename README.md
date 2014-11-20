@@ -14,8 +14,6 @@ Features
   * compatible with **node.js**, and both **all browsers** and **Rhino** through Browserify (`npm install es6-unweak-collections`).
   * **100% unobtrusive** with any environment. If native collections are present, they're returned instead rather than the shims.
   * **size and performances oriented** polyfill.
-  * 100% of code coverage
-  * completely private shared behavior in order to easily maintain and update three collections at once
 
 
 Alternatives
