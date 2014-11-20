@@ -1,10 +1,9 @@
 {
-  "name": "es6-collections",
+  "name": "es6-unweak-collections",
   "version": "0.4.0",
   "description": "ES6 Harmony like collections such Map, WeakMap, and Set",
-  "homepage": "https://github.com/WebReflection/es6-collections",
+  "homepage": "https://github.com/AgentME/es6-unweak-collections",
   "keywords": [
-    "WeakMap",
     "Map",
     "Set",
     "shim",
@@ -12,47 +11,29 @@
     "ES6",
     "Harmony"
   ],
-  "author": "Andrea Giammarchi <andrea.giammarchi@gmail.com> (http://webreflection.blogspot.com/)",
+  "author": "Chris Cowan <agentme49@gmail.com> (https://crashcoherency.net/)",
   "contributors": [
     {
       "name": "Dmitry Ivanov",
       "email": "df.creative@gmail.com",
       "url": "http://github.com/dfcreative"
+    },
+    {
+      "name": "Andrea Giammarchi",
+      "email": "andrea.giammarchi@gmail.com",
+      "url": "http://webreflection.blogspot.com/"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/WebReflection/es6-collections.git"
+    "url": "git://github.com/AgentME/es6-unweak-collections.git"
   },
   "main": "./index.js",
-  "engines": {
-    "node": ">= 0.4.0"
-  },
-  "dependencies": {},
   "devDependencies": {
-    "closurecompiler": "~1.3.2",
-    "better-assert": "~1.0.1",
-    "mocha": "~1.21.4",
-    "browserify": "~5.12.0"
+    "better-assert": "^1.0.1",
+    "mocha": "~1.21.4"
   },
-  "optionalDependencies": {},
   "scripts": {
-    "build": "npm run minify && npm run test",
-    "minify": "ccjs index.js > es6-collections.js",
     "test": "mocha"
-  },
-  "testling": {
-    "files": "test/*.js",
-    "browsers": [
-      "ie/6..latest",
-      "chrome/22..latest",
-      "firefox/16..latest",
-      "safari/latest",
-      "opera/11.0..latest",
-      "iphone/6",
-      "ipad/6",
-      "android-browser/latest"
-    ],
-    "harness": "mocha-bdd"
   }
 }
