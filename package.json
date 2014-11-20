@@ -28,6 +28,7 @@
     "type": "git",
     "url": "git://github.com/AgentME/es6-unweak-collections.git"
   },
+  "license": "MIT",
   "main": "./index.js",
   "devDependencies": {
     "better-assert": "^1.0.1",
