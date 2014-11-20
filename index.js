@@ -1,5 +1,5 @@
 (function (exports) {'use strict';
-  //shared pointer
+  //shared pointer. When .has() finds an item, this is set to its index.
   var i;
   //shortcuts
   var defineProperty = Object.defineProperty, is = Object.is;
@@ -106,8 +106,11 @@
     if (this.objectOnly && key !== Object(key))
       throw new TypeError("Invalid value used as weak collection key");
     //NaN or 0 passed
-    if (key != key || key === 0) for (i = list.length; i-- && !is(list[i], key););
-    else i = list.indexOf(key);
+    if (key != key || key === 0) {
+      for (i = list.length; i-- && !is(list[i], key););
+    } else {
+      i = list.indexOf(key);
+    }
     return -1 < i;
   }
 
