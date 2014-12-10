@@ -4,7 +4,7 @@
   //shortcuts
   var defineProperty = Object.defineProperty, is = Object.is;
 
-  if (typeof Map == 'undefined') {
+  if (typeof Map == 'undefined' || !Map.prototype.forEach) {
     exports.Map = createCollection({
       // Map#delete(key:void*):boolean
       'delete': sharedDelete,
@@ -27,7 +27,7 @@
     exports.Map = Map;
   }
 
-  if (typeof Set == 'undefined') {
+  if (typeof Set == 'undefined' || !Set.prototype.forEach) {
     exports.Set = createCollection({
       // Set#has(value:void*):boolean
       has: setHas,
