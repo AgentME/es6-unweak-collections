@@ -1,6 +1,11 @@
 ES6 Harmony Collections
 ===========================================
 
+**This was a fork of es6-collections changed to work well under browserify.
+[core-js](https://github.com/zloirock/core-js/) (especially when used via
+[Babel](https://babeljs.io/)) has since better met my needs, so consider this
+module deprecated.**
+
 
 The aim of this repository is to provide an **unobtrusive, performances oriented** shim for ES6 collections such **Map** and **Set** for node.js and Browserify.
 
